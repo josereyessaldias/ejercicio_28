@@ -5,5 +5,36 @@
   <%= @company.name %>
 </p>
 
+<%= form_with model: [@company, @employee], local: true do |f| %>
+	<%= f.hidden_field :company_id, value: @company.id %>
+	<%= f.hidden_field :area_id, value: 1 %>
+
+	<%= f.label :first_name %>
+	<%= f.text_field :first_name %>
+
+	<%= f.label :last_name %>
+	<%= f.text_field :last_name %>
+
+	<%= f.label :email %>
+	<%= f.text_field :email %>
+
+	<%= f.submit "Enviar" %>
+
+<% end %><br><br>
+
+
+<h5>Empleados de la Compañía</h5>
+<ul>
+<% @company.employees.each do |employee| %>
+	<li><%= employee.first_name %>
+	<%= employee.last_name %>
+	<%= employee.email %>
+	<%= employee.area_id %>
+	<%= link_to "Eliminar empleado", company_employee_path(@company,employee), method: :delete %>
+	</li>
+<% end %>
+</ul>
+
+
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
