@@ -1,3 +1,4 @@
+<br><br>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -18,22 +19,34 @@
 	<%= f.label :email %>
 	<%= f.text_field :email %>
 
+	<%= f.label :area %>
+	<%= f.select :area_id, Area.pluck(:name, :id) %>
+
 	<%= f.submit "Enviar" %>
 
 <% end %><br><br>
 
 
-<h5>Empleados de la Compañía</h5>
-<ul>
+<h5>Empleados de la Compañía</h5><br>
+
+<table class="table">
+	<thead>
+		<th>Nombre</th>
+		<th>Apellido</th>
+		<th>Email</th>
+		<th>Área</th>
+	</thead>
 <% @company.employees.each do |employee| %>
-	<li><%= employee.first_name %>
-	<%= employee.last_name %>
-	<%= employee.email %>
-	<%= employee.area_id %>
-	<%= link_to "Eliminar empleado", company_employee_path(@company,employee), method: :delete %>
-	</li>
+	<tr>
+		<td><%= employee.first_name %></td>
+		<td><%= employee.last_name %></td>
+		<td><%= employee.email %></td>
+		<td><%= employee.area.name %></td>
+		<td><%= link_to "Eliminar empleado", company_employee_path(@company,employee), method: :delete %></td>
+	</tr>
 <% end %>
-</ul>
+</table><br>
+
 
 
 <%= link_to 'Edit', edit_company_path(@company) %> |
